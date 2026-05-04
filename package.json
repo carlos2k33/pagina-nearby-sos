@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "@next/third-parties": "^16.0.3",
     "@types/pg": "^8.15.4",
-    "drizzle-orm": "^0.44.2",
+    "drizzle-orm": "^0.45.2",
     "next": "16.2.4",
     "pg": "^8.16.2",
     "postgres": "^3.4.7",
