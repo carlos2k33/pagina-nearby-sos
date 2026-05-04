@@ -1,11 +1,8 @@
-// src/app/page.tsx
 import Head from 'next/head';
-import HeroSection from '@/components/HerosSection';
-import Features from '@/components/Features';
 import Navbar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 
-export default function Home() {
+export default function Blog() {
   return (
     <>
       <Head>
@@ -18,8 +15,18 @@ export default function Home() {
 
       <main className="min-h-screen">
         <Navbar />
-        <HeroSection />
-        <Features />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <Footer />
       </main>
     </>

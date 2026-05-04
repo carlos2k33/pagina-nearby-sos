@@ -1,11 +1,9 @@
-// src/app/page.tsx
 import Head from 'next/head';
-import HeroSection from '@/components/HerosSection';
-import Features from '@/components/Features';
 import Navbar from '@/components/NavBar';
 import Footer from '@/components/Footer';
+import ContactForm from '@/components/ContactForm';
 
-export default function Home() {
+export default function Contacto() {
   return (
     <>
       <Head>
@@ -16,12 +14,11 @@ export default function Home() {
         <meta property="og:description" content="Conecta tu vecindario con nuestro sistema de alarmas activables desde tu móvil" />
       </Head>
 
-      <main className="min-h-screen">
+      <div>
         <Navbar />
-        <HeroSection />
-        <Features />
+        <ContactForm />
         <Footer />
-      </main>
+      </div>
     </>
   );
 }
