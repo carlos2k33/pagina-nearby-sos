@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pagina Nearby SOS
 
-## Getting Started
+Sitio web oficial de Nearby SOS — aplicación de seguridad personal.
 
-First, run the development server:
+## Stack tecnológico
 
-```bash
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+
+## Pipeline de seguridad (DevSecOps)
+
+Este repositorio tiene integrado un pipeline de seguridad automatizado que corre en cada push y pull request hacia main.
+
+### Herramientas configuradas
+
+| Herramienta | Tipo | Qué hace |
+|-------------|------|----------|
+| Dependabot | SCA | Escanea dependencias con CVEs conocidos semanalmente y abre PRs automáticos con los parches |
+| GitLeaks | Secrets scanning | Escanea todo el historial de git buscando credenciales, API keys o contraseñas expuestas |
+| Semgrep | SAST | Análisis estático del código fuente buscando vulnerabilidades del OWASP Top 10 |
+
+### Flujo del pipeline
+
+Push / Pull Request hacia main
+1. GitLeaks — detecta secretos en el historial
+2. Semgrep — analiza el código con reglas OWASP Top 10
+3. npm install — instala dependencias
+4. npm run build — valida que el proyecto compila
+
+### Decisiones de seguridad documentadas
+
+**PostCSS XSS (Moderate) — Riesgo aceptado**
+Dependencia transitiva introducida por Next.js 16.2.4. No explotable en el contexto de uso actual ya que el CSS es controlado internamente. Pendiente de resolución por el equipo de Next.js upstream.
+
+**esbuild (Moderate) — Riesgo aceptado**
+Afecta únicamente el servidor de desarrollo local, nunca el entorno de producción. No hay parche disponible actualmente.
+
+### Vulnerabilidades resueltas
+
+Al configurar Dependabot se detectaron y resolvieron 21 vulnerabilidades mediante actualización de dependencias:
+
+- Next.js actualizado de 15.5.9 a 16.2.4 — resolvió múltiples CVEs de DoS
+- Drizzle ORM actualizado de 0.44.7 a 0.45.2 — resolvió SQL injection (CWE-89)
+- flatted actualizado de 3.3.3 a 3.4.2 — resolvió Prototype Pollution
+- minimatch y picomatch actualizados — resolvieron ReDoS
+- postcss, eslint y otras dependencias de desarrollo actualizadas
+
+## Desarrollo local
+
+Instalar dependencias y correr el servidor de desarrollo:
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Crear un archivo .env en la raíz del proyecto. Este archivo está incluido en .gitignore y nunca debe commitearse.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+DATABASE_URL="postgresql://..."
